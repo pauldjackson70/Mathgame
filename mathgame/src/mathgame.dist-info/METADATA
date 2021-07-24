@@ -1,0 +1,10 @@
+Metadata-Version: 2.1
+Briefcase-Version: 0.3.5
+Name: mathgame
+Formal-Name: Mathgame
+App-ID: com.example.mathgame
+Version: 0.0.1
+Home-page: https://github.com/pauldjackson70/Mathgame
+Author: Paul D Jackson
+Author-email: paul.d.jackson70@gmail.com
+Summary: An application built with Beeware's Toga to test basic math
