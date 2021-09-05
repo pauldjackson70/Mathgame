@@ -77,13 +77,13 @@ class Mathgame(toga.App):
                 'What is the next number?',
                 style=Pack(
                     padding=(0, 5),
-                    font_size=16
+                    font_size=16,
                 )
             )
             self.number_display = toga.TextInput(
                 style=Pack(
                     flex=1,
-                    font_size=16
+                    font_size=16,
                 ), 
                 initial=button_labels[0],
                 readonly=True
@@ -100,7 +100,7 @@ class Mathgame(toga.App):
                 style=Pack(
                     padding=5, 
                     background_color='Orange',
-                    font_size=16
+                    font_size=16,
                 )
             )
             button2 = toga.Button(
@@ -110,7 +110,7 @@ class Mathgame(toga.App):
                 style=Pack(
                     padding=5, 
                     background_color='Blue',
-                    font_size=16
+                    font_size=16,
                 )
             )
             button3 = toga.Button(
@@ -120,14 +120,14 @@ class Mathgame(toga.App):
                 style=Pack(
                     padding=5, 
                     background_color='Green',
-                    font_size=16
+                    font_size=16,
                 )
             )
 
             score_display = toga.TextInput(
                 style=Pack(
                     flex=1,
-                    font_size=10
+                    font_size=10,
                 ), 
                 initial=f'{score} / {attempt}',
                 readonly=True
