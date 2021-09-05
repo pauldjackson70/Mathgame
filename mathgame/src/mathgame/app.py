@@ -40,20 +40,7 @@ class Mathgame(toga.App):
         button1label = options[choice1]
         button2label = options[choice2]
         button3label = options[choice3]
-        return(initialNum,button1label,button2label,button3label)
-    
-    # def update_labels(self,widget):
-    #     button_labels = self.chooseoptions()
-    #     print(button_labels)
-    #     # print(widget.root.children[1].label)
-    #     # print(widget.root.children[2].label)
-    #     # print(widget.root.children[3].label)
-    #     # print(widget.root.children[4].label)
-    #     self.number_display.value = button_labels[0]
-    #     widget.root.children[1].label = button_labels[1]
-    #     widget.root.children[2].label = button_labels[2]
-    #     widget.root.children[3].label = button_labels[3]
-    #     widget.root.children[4].value = f'{score} / {attempt}'    
+        return(initialNum,button1label,button2label,button3label)   
 
     def check_answer(self,widget):
         global score 
@@ -70,6 +57,8 @@ class Mathgame(toga.App):
             self.score_display.value = f'{score} / {attempt}'
 
     def startSequence(self):
+        self.btn_open_sequence.enabled=False
+        self.btn_open_addition.enabled=True
         sequence_box = toga.Box(style=Pack(direction=COLUMN))    
         def create_labels():
             button_labels = self.chooseoptions()    
@@ -167,27 +156,31 @@ class Mathgame(toga.App):
 
         def open_addition(widget):
             print('addition')
+            print(main_box.children)
+            # main_box.remove(main_box.children)
             pass
 
-        btn_open_sequence = toga.Button(
+        self.btn_open_sequence = toga.Button(
             'Sequence',
             on_press=open_sequence,
             style=Pack(
                 padding=5, 
-                font_size=16
-            )
+                font_size=16,
+            ),
+            enabled=True
         )
-        btn_open_addition = toga.Button(
+        self.btn_open_addition = toga.Button(
             'Addition',
             on_press=open_addition,
             style=Pack(
                 padding=5, 
-                font_size=16
-            )
+                font_size=16,
+            ),
+            enabled=False
         )
 
-        main_button_box.add(btn_open_sequence)
-        main_button_box.add(btn_open_addition)
+        main_button_box.add(self.btn_open_sequence)
+        main_button_box.add(self.btn_open_addition)
 
         main_box.add(main_button_box)
 
