@@ -42,18 +42,18 @@ class Mathgame(toga.App):
         button3label = options[choice3]
         return(initialNum,button1label,button2label,button3label)
     
-    def update_labels(self,widget):
-        button_labels = self.chooseoptions()
-        print(button_labels)
-        # print(widget.root.children[1].label)
-        # print(widget.root.children[2].label)
-        # print(widget.root.children[3].label)
-        # print(widget.root.children[4].label)
-        self.number_display.value = button_labels[0]
-        widget.root.children[1].label = button_labels[1]
-        widget.root.children[2].label = button_labels[2]
-        widget.root.children[3].label = button_labels[3]
-        widget.root.children[4].value = f'{score} / {attempt}'    
+    # def update_labels(self,widget):
+    #     button_labels = self.chooseoptions()
+    #     print(button_labels)
+    #     # print(widget.root.children[1].label)
+    #     # print(widget.root.children[2].label)
+    #     # print(widget.root.children[3].label)
+    #     # print(widget.root.children[4].label)
+    #     self.number_display.value = button_labels[0]
+    #     widget.root.children[1].label = button_labels[1]
+    #     widget.root.children[2].label = button_labels[2]
+    #     widget.root.children[3].label = button_labels[3]
+    #     widget.root.children[4].value = f'{score} / {attempt}'    
 
     def check_answer(self,widget):
         global score 
@@ -62,7 +62,8 @@ class Mathgame(toga.App):
             score = score + 1
             attempt = attempt + 1
             print(score,attempt)
-            self.update_labels(widget)
+            self.startSequence(self)
+            # self.update_labels(widget)
         else:
             attempt = attempt + 1
             print(score,attempt)
@@ -142,6 +143,20 @@ class Mathgame(toga.App):
         create_labels()
 
         return(sequence_box)
+
+    def update_labels(self,widget):
+        button_labels = self.chooseoptions()
+        print(button_labels)
+        # print(widget.root.children[1].label)
+        # print(widget.r    oot.children[2].label)
+        # print(widget.root.children[3].label)
+        # print(widget.root.children[4].label)
+        self.number_display.value = button_labels[0]
+        widget.root.children[1].label = button_labels[1]
+        widget.root.children[2].label = button_labels[2]
+        widget.root.children[3].label = button_labels[3]
+        widget.root.children[4].value = f'{score} / {attempt}'  
+        
 
     def startup(self):
         """
