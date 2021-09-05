@@ -62,12 +62,12 @@ class Mathgame(toga.App):
             score = score + 1
             attempt = attempt + 1
             print(score,attempt)
-            self.startSequence(self)
-            # self.update_labels(widget)
+   
+            self.update_labels(widget)
         else:
             attempt = attempt + 1
             print(score,attempt)
-            widget.root.children[4].value = f'{score} / {attempt}'
+            self.score_display.value = f'{score} / {attempt}'
 
     def startSequence(self):
         sequence_box = toga.Box(style=Pack(direction=COLUMN))    
@@ -94,7 +94,7 @@ class Mathgame(toga.App):
             question_box.add(question_label)
             question_box.add(self.number_display)
 
-            button1 = toga.Button(
+            self.button1 = toga.Button(
                 f'{button_labels[1]}',
                 id = f'{button_labels[1]}',
                 on_press=self.check_answer,
@@ -104,7 +104,7 @@ class Mathgame(toga.App):
                     font_size=16,
                 )
             )
-            button2 = toga.Button(
+            self.button2 = toga.Button(
                 f'{button_labels[2]}',
                 id = f'{button_labels[2]}',
                 on_press=self.check_answer,
@@ -114,7 +114,7 @@ class Mathgame(toga.App):
                     font_size=16,
                 )
             )
-            button3 = toga.Button(
+            self.button3 = toga.Button(
                 f'{button_labels[3]}',
                 id = f'{button_labels[3]}',
                 on_press=self.check_answer,
@@ -125,7 +125,7 @@ class Mathgame(toga.App):
                 )
             )
 
-            score_display = toga.TextInput(
+            self.score_display = toga.TextInput(
                 style=Pack(
                     flex=1,
                     font_size=10,
@@ -135,10 +135,10 @@ class Mathgame(toga.App):
             )
 
             sequence_box.add(question_box)
-            sequence_box.add(button1)
-            sequence_box.add(button2)
-            sequence_box.add(button3)
-            sequence_box.add(score_display)
+            sequence_box.add(self.button1)
+            sequence_box.add(self.button2)
+            sequence_box.add(self.button3)
+            sequence_box.add(self.score_display)
 
         create_labels()
 
@@ -147,15 +147,11 @@ class Mathgame(toga.App):
     def update_labels(self,widget):
         button_labels = self.chooseoptions()
         print(button_labels)
-        # print(widget.root.children[1].label)
-        # print(widget.r    oot.children[2].label)
-        # print(widget.root.children[3].label)
-        # print(widget.root.children[4].label)
         self.number_display.value = button_labels[0]
-        widget.root.children[1].label = button_labels[1]
-        widget.root.children[2].label = button_labels[2]
-        widget.root.children[3].label = button_labels[3]
-        widget.root.children[4].value = f'{score} / {attempt}'  
+        self.button1.label = button_labels[1]
+        self.button2.label = button_labels[2]
+        self.button3.label = button_labels[3]
+        self.score_display.value = f'{score} / {attempt}'  
         
 
     def startup(self):
