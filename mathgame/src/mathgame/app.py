@@ -59,7 +59,8 @@ class Mathgame(toga.App):
     def startSequence(self):
         self.btn_open_sequence.enabled=False
         self.btn_open_addition.enabled=True
-        sequence_box = toga.Box(style=Pack(direction=COLUMN))    
+        
+        # sequence_box = toga.Box(style=Pack(direction=COLUMN))    
         def create_labels():
             button_labels = self.chooseoptions()    
             print(button_labels)
@@ -123,15 +124,15 @@ class Mathgame(toga.App):
                 readonly=True
             )
 
-            sequence_box.add(question_box)
-            sequence_box.add(self.button1)
-            sequence_box.add(self.button2)
-            sequence_box.add(self.button3)
-            sequence_box.add(self.score_display)
-
+            self.sequence_box.add(question_box)
+            self.sequence_box.add(self.button1)
+            self.sequence_box.add(self.button2)
+            self.sequence_box.add(self.button3)
+            self.sequence_box.add(self.score_display)
+            
         create_labels()
 
-        return(sequence_box)
+        # return(sequence_box)
 
     def update_labels(self,widget):
         button_labels = self.chooseoptions()
@@ -152,7 +153,13 @@ class Mathgame(toga.App):
         def open_sequence(widget):
             print('sequence')
             # main_box.remove(main_button_box)
-            main_box.add(self.startSequence())
+            # main_box.add(self.startSequence())
+            sequence_window = toga.Window(title="Sequence")
+            self.windows.add(sequence_window)
+            self.sequence_box = toga.Box(style=Pack(direction=COLUMN)) 
+            sequence_window.content = self.sequence_box
+            self.startSequence()
+            sequence_window.show() #why doen't this work?
 
         def open_addition(widget):
             print('addition')
@@ -178,9 +185,17 @@ class Mathgame(toga.App):
             ),
             enabled=False
         )
-
+        self.num_input1 =toga.NumberInput(
+            min_value=0,
+            max_value=20,
+            style=Pack(
+                padding=5, 
+                font_size=16,
+            ),
+        )
         main_button_box.add(self.btn_open_sequence)
         main_button_box.add(self.btn_open_addition)
+        main_button_box.add(self.num_input1)
 
         main_box.add(main_button_box)
 
