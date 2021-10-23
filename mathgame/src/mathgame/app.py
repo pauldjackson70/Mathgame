@@ -2,6 +2,7 @@
 An application built with Beeware's Toga to test basic math
 """
 import toga
+from toga.app import MainWindow
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 import random
@@ -9,7 +10,7 @@ import random
 score = 0
 attempt = 0
 
-# class SequenceNumbers(toga.window):
+
 class Mathgame(toga.App):
     
 
@@ -37,10 +38,10 @@ class Mathgame(toga.App):
         else:
             choice3 = 1
             
-        button1label = options[choice1]
-        button2label = options[choice2]
-        button3label = options[choice3]
-        return(initialNum,button1label,button2label,button3label)   
+        button1label = str(options[choice1])
+        button2label = str(options[choice2])
+        button3label = str(options[choice3])
+        return(str(initialNum),button1label,button2label,button3label)   
 
     def check_answer(self,widget):
         global score 
@@ -57,10 +58,7 @@ class Mathgame(toga.App):
             self.score_display.value = f'{score} / {attempt}'
 
     def startSequence(self):
-        self.btn_open_sequence.enabled=False
-        self.btn_open_addition.enabled=True
-        
-        # sequence_box = toga.Box(style=Pack(direction=COLUMN))    
+   
         def create_labels():
             button_labels = self.chooseoptions()    
             print(button_labels)
@@ -76,7 +74,7 @@ class Mathgame(toga.App):
                     flex=1,
                     font_size=16,
                 ), 
-                initial=button_labels[0],
+                initial=str(button_labels[0]),
                 readonly=True
             )
             
@@ -85,7 +83,7 @@ class Mathgame(toga.App):
             question_box.add(self.number_display)
 
             self.button1 = toga.Button(
-                f'{button_labels[1]}',
+                f'{str(button_labels[1])}',
                 id = f'{button_labels[1]}',
                 on_press=self.check_answer,
                 style=Pack(
@@ -94,8 +92,9 @@ class Mathgame(toga.App):
                     font_size=16,
                 )
             )
+            print('button 1')
             self.button2 = toga.Button(
-                f'{button_labels[2]}',
+                f'{str(button_labels[2])}',
                 id = f'{button_labels[2]}',
                 on_press=self.check_answer,
                 style=Pack(
@@ -104,8 +103,9 @@ class Mathgame(toga.App):
                     font_size=16,
                 )
             )
+            print('button 2')
             self.button3 = toga.Button(
-                f'{button_labels[3]}',
+                f'{str(button_labels[3])}',
                 id = f'{button_labels[3]}',
                 on_press=self.check_answer,
                 style=Pack(
@@ -114,16 +114,16 @@ class Mathgame(toga.App):
                     font_size=16,
                 )
             )
-
+            print('button 3')
             self.score_display = toga.TextInput(
                 style=Pack(
                     flex=1,
                     font_size=10,
                 ), 
-                initial=f'{score} / {attempt}',
+                initial=f'{str(score)} / {str(attempt)}',
                 readonly=True
             )
-
+            print('score display')
             self.sequence_box.add(question_box)
             self.sequence_box.add(self.button1)
             self.sequence_box.add(self.button2)
@@ -132,15 +132,15 @@ class Mathgame(toga.App):
             
         create_labels()
 
-        # return(sequence_box)
+        return(self.sequence_box)
 
     def update_labels(self,widget):
         button_labels = self.chooseoptions()
         print(button_labels)
-        self.number_display.value = button_labels[0]
-        self.button1.label = button_labels[1]
-        self.button2.label = button_labels[2]
-        self.button3.label = button_labels[3]
+        self.number_display.value = str(button_labels[0])
+        self.button1.label = str(button_labels[1])
+        self.button2.label = str(button_labels[2])
+        self.button3.label = str(button_labels[3])
         self.score_display.value = f'{score} / {attempt}'  
         
 
@@ -152,19 +152,16 @@ class Mathgame(toga.App):
         main_button_box = toga.Box(style=Pack(direction=ROW))
         def open_sequence(widget):
             print('sequence')
-            # main_box.remove(main_button_box)
-            # main_box.add(self.startSequence())
-            sequence_window = toga.Window(title="Sequence")
-            self.windows.add(sequence_window)
+
             self.sequence_box = toga.Box(style=Pack(direction=COLUMN)) 
-            sequence_window.content = self.sequence_box
             self.startSequence()
-            sequence_window.show() #why doen't this work?
+            self.main_window.content = self.sequence_box
+
 
         def open_addition(widget):
             print('addition')
-            print(main_box.children)
-            # main_box.remove(main_box.children)
+           
+
             pass
 
         self.btn_open_sequence = toga.Button(
