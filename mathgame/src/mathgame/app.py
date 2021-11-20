@@ -142,7 +142,62 @@ class Mathgame(toga.App):
         self.button2.label = str(button_labels[2])
         self.button3.label = str(button_labels[3])
         self.score_display.value = f'{score} / {attempt}'  
-        
+    
+    def startAddition(self):
+        print('addition inside')
+        self.question_label2 = toga.Label(
+                'Add the numbers below',
+                style=Pack(
+                    padding=(25, 25),
+                    font_size=28,
+                )
+            )
+        self.First_Number = toga.Label(
+                '1',
+                style=Pack(
+                    padding=(0, 5),
+                    font_size=16,
+                )
+            )
+        self.Second_Number = toga.Label(
+                '+ 2',
+                style=Pack(
+                    padding=(0, 5),
+                    font_size=16,
+                )
+            )
+        self.line_label = toga.Label(
+                '________________',
+                style=Pack(
+                    padding=(0, 0),
+                    font_size=16,
+                )
+            )
+
+        self.score_display = toga.TextInput(
+                style=Pack(
+                    flex=1,
+                    font_size=10,
+                ), 
+                initial=f'{str(score)} / {str(attempt)}',
+                readonly=True
+            )
+        self.add_aswer =toga.NumberInput(
+            min_value=0,
+            max_value=20,
+            style=Pack(
+                padding=5, 
+                font_size=16,
+            ),
+        )
+        self.addition_box.add(self.question_label2)
+        self.addition_box.add(self.First_Number)
+        self.addition_box.add(self.Second_Number)
+        self.addition_box.add(self.line_label)
+        self.addition_box.add(self.add_aswer)
+        self.addition_box.add(self.score_display)
+
+        return(self.addition_box)
 
     def startup(self):
         """
@@ -160,9 +215,11 @@ class Mathgame(toga.App):
 
         def open_addition(widget):
             print('addition')
-           
 
-            pass
+            self.addition_box = toga.Box(style=Pack(direction=COLUMN)) 
+            self.startAddition()
+            self.main_window.content = self.addition_box
+
 
         self.btn_open_sequence = toga.Button(
             'Sequence',
@@ -180,7 +237,7 @@ class Mathgame(toga.App):
                 padding=5, 
                 font_size=16,
             ),
-            enabled=False
+            enabled=True
         )
         self.num_input1 =toga.NumberInput(
             min_value=0,
