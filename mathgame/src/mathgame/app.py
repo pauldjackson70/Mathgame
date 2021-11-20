@@ -143,8 +143,34 @@ class Mathgame(toga.App):
         self.button3.label = str(button_labels[3])
         self.score_display.value = f'{score} / {attempt}'  
     
+    def update_addition(self,widget):
+        adder_labels = self.chooseoptions()
+        print(adder_labels)
+        self.First_Number.text = str(adder_labels[0])
+        self.Second_Number.text = str(adder_labels[1])
+        self.add_aswer.value = 0
+        self.score_display.value = f'{score} / {attempt}'  
+    
+    def check_addition(self,widget):
+        global score 
+        global attempt
+        print(self.add_aswer.value)
+        print(int(self.First_Number.text))
+        print(self.Second_Number.text)
+        if int(self.add_aswer.value) == int(self.First_Number.text) + int(self.Second_Number.text) :
+            score = score + 1
+            attempt = attempt + 1
+            print(score,attempt)
+   
+            self.update_addition(widget)
+        else:
+            attempt = attempt + 1
+            print(score,attempt)
+            self.score_display.value = f'{score} / {attempt}'
+
     def startAddition(self):
         print('addition inside')
+        adder_labels = self.chooseoptions() 
         self.question_label2 = toga.Label(
                 'Add the numbers below',
                 style=Pack(
@@ -153,14 +179,21 @@ class Mathgame(toga.App):
                 )
             )
         self.First_Number = toga.Label(
-                '1',
+                str(adder_labels[0]),
+                style=Pack(
+                    padding=(0, 5),
+                    font_size=16,
+                )
+            )
+        self.addition_label = toga.Label(
+                '+',
                 style=Pack(
                     padding=(0, 5),
                     font_size=16,
                 )
             )
         self.Second_Number = toga.Label(
-                '+ 2',
+                str(adder_labels[1]),
                 style=Pack(
                     padding=(0, 5),
                     font_size=16,
@@ -173,7 +206,24 @@ class Mathgame(toga.App):
                     font_size=16,
                 )
             )
-
+        self.add_aswer =toga.NumberInput(
+            min_value=0,
+            max_value=42,
+            style=Pack(
+                padding=5, 
+                font_size=16,
+            ),
+        )
+        self.submit_button = toga.Button(
+               'Submit',
+                id = '1',
+                on_press=self.check_addition,
+                style=Pack(
+                    padding=5, 
+                    background_color='Green',
+                    font_size=16,
+                )
+            )
         self.score_display = toga.TextInput(
                 style=Pack(
                     flex=1,
@@ -181,20 +231,14 @@ class Mathgame(toga.App):
                 ), 
                 initial=f'{str(score)} / {str(attempt)}',
                 readonly=True
-            )
-        self.add_aswer =toga.NumberInput(
-            min_value=0,
-            max_value=20,
-            style=Pack(
-                padding=5, 
-                font_size=16,
-            ),
-        )
+            ) 
         self.addition_box.add(self.question_label2)
         self.addition_box.add(self.First_Number)
+        self.addition_box.add(self.addition_label)
         self.addition_box.add(self.Second_Number)
         self.addition_box.add(self.line_label)
         self.addition_box.add(self.add_aswer)
+        self.addition_box.add(self.submit_button)
         self.addition_box.add(self.score_display)
 
         return(self.addition_box)
